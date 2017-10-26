@@ -1,3 +1,4 @@
+import Correios from 'node-correios';
 import cities from './Cidades.json';
 import states from './Estados.json';
 
@@ -10,7 +11,9 @@ function citiesBy(key, value)
 
 function cityById(id)
 {
-    return citiesBy('ID', String(id));
+    const [city] = citiesBy('ID', String(id));
+
+    return city;
 }
 
 function stateBy(key, value)
@@ -25,4 +28,36 @@ function stateById(id)
     return stateBy('ID', String(id));
 }
 
-export { cities, states, citiesBy, cityById, stateBy, stateById };
+function cepWithPromise(value)
+{
+    return new Promise((resolve, reject) =>
+    {
+        const correios = new Correios();
+
+        return correios.consultaCEP({ cep: value }, (err, result) =>
+        {
+            if (err) return reject(err);
+
+            return resolve(result);
+        });
+    });
+}
+
+async function cep(value)
+{
+    const result = await cepWithPromise(value);
+
+    if (result && !result.erro)
+    {
+        const [cidade] = citiesBy('Nome', result.localidade);
+
+        result.cidade = cidade;
+        result.estado = stateBy('Sigla', result.uf);
+
+        return result;
+    }
+
+    return null;
+}
+
+export { cities, states, citiesBy, cityById, stateBy, stateById, cep };

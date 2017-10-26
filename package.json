@@ -41,5 +41,8 @@
     "eslint-plugin-react": "^7.4.0",
     "jest": "^21.2.1",
     "copyfiles": "^1.2.0"
+  },
+  "dependencies": {
+    "node-correios": "^2.1.1"
   }
 }

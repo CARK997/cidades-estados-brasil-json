@@ -1,4 +1,4 @@
-import { citiesBy, cityById, stateBy, stateById } from './dist/index';
+import { citiesBy, cityById, stateBy, stateById, cep } from './dist/index';
 
 const MINAS_GERAIS = {
     ID: '11',
@@ -11,14 +11,17 @@ const BELO_HORIZONTE = {
     Estado: '11',
 };
 
+jest.mock('node-correios');
+
 describe('citiesBy', () =>
 {
-    it('should return correct city', () =>
+    it('should return city', () =>
     {
         expect(citiesBy('Nome', 'Belo Horizonte')).toEqual([BELO_HORIZONTE]);
+        expect(citiesBy('Nome', '')).toEqual([]);
     });
 
-    it('should return correct cities for a state ID', () =>
+    it('should return cities for a state ID', () =>
     {
         expect(citiesBy('Estado', '22')).toEqual([
             { ID: '4398', Nome: 'Alto Alegre', Estado: '22' },
@@ -37,30 +40,60 @@ describe('citiesBy', () =>
             { ID: '4411', Nome: 'São Luiz', Estado: '22' },
             { ID: '4412', Nome: 'Uiramutã', Estado: '22' },
         ]);
+        expect(citiesBy('Estado', '99')).toEqual([]);
     });
 });
 
 describe('cityById', () =>
 {
-    it('should return correct city by ID field', () =>
+    it('should return city by ID field', () =>
     {
-        expect(cityById(1630)).toEqual([BELO_HORIZONTE]);
+        expect(cityById(1630)).toEqual(BELO_HORIZONTE);
+        expect(cityById(99999999)).toEqual(undefined);
     });
 });
 
 describe('stateBy', () =>
 {
-    it('should return correct state', () =>
+    it('should return state', () =>
     {
         expect(stateBy('Nome', 'Minas Gerais')).toEqual(MINAS_GERAIS);
         expect(stateBy('Sigla', 'MG')).toEqual(MINAS_GERAIS);
+        expect(stateBy('Sigla', '')).toEqual(undefined);
     });
 });
 
 describe('stateById', () =>
 {
-    it('should return correct state by ID field', () =>
+    it('should return state by ID field', () =>
     {
         expect(stateById(11)).toEqual(MINAS_GERAIS);
+        expect(stateById(9999)).toEqual(undefined);
+    });
+});
+
+describe('cep', () =>
+{
+    it('should return cep', async () =>
+    {
+        const cepBH = await cep('30112021');
+
+        expect(cepBH).toEqual({
+            bairro: 'Savassi',
+            cep: '30112-021',
+            cidade: BELO_HORIZONTE,
+            complemento: 'de 551/552 a 1219/1220',
+            estado: MINAS_GERAIS,
+            gia: '',
+            ibge: '3106200',
+            localidade: 'Belo Horizonte',
+            logradouro: 'Avenida Getúlio Vargas',
+            uf: 'MG',
+            unidade: '',
+        });
+
+        const cepNull = await cep('00000000');
+
+        expect(cepNull).toBe(null);
     });
 });
