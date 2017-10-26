@@ -45,7 +45,8 @@ function cepWithPromise(value)
 
 async function cep(value)
 {
-    const result = await cepWithPromise(value);
+    const correctCEP = value.replace(/[^0-9]/g, '');
+    const result = await cepWithPromise(correctCEP);
 
     if (result && !result.erro)
     {

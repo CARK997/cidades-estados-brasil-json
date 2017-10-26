@@ -10,6 +10,19 @@ const BELO_HORIZONTE = {
     Nome: 'Belo Horizonte',
     Estado: '11',
 };
+const SAVASSI = {
+    bairro: 'Savassi',
+    cep: '30112-021',
+    cidade: BELO_HORIZONTE,
+    complemento: 'de 551/552 a 1219/1220',
+    estado: MINAS_GERAIS,
+    gia: '',
+    ibge: '3106200',
+    localidade: 'Belo Horizonte',
+    logradouro: 'Avenida Getúlio Vargas',
+    uf: 'MG',
+    unidade: '',
+};
 
 jest.mock('node-correios');
 
@@ -74,24 +87,22 @@ describe('stateById', () =>
 
 describe('cep', () =>
 {
-    it('should return cep', async () =>
+    it('should return CEP', async () =>
     {
         const cepBH = await cep('30112021');
 
-        expect(cepBH).toEqual({
-            bairro: 'Savassi',
-            cep: '30112-021',
-            cidade: BELO_HORIZONTE,
-            complemento: 'de 551/552 a 1219/1220',
-            estado: MINAS_GERAIS,
-            gia: '',
-            ibge: '3106200',
-            localidade: 'Belo Horizonte',
-            logradouro: 'Avenida Getúlio Vargas',
-            uf: 'MG',
-            unidade: '',
-        });
+        expect(cepBH).toEqual(SAVASSI);
+    });
 
+    it('should return CEP with dash and dot', async () =>
+    {
+        const cepBHwithDashAndDot = await cep('30.112-021');
+
+        expect(cepBHwithDashAndDot).toEqual(SAVASSI);
+    });
+
+    it('should return null for wrong CEP', async () =>
+    {
         const cepNull = await cep('00000000');
 
         expect(cepNull).toBe(null);

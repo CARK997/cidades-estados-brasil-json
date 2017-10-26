@@ -9,20 +9,21 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
 
 var cep = function () {
     var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee(value) {
-        var result, _citiesBy3, _citiesBy4, cidade;
+        var correctCEP, result, _citiesBy3, _citiesBy4, cidade;
 
         return regeneratorRuntime.wrap(function _callee$(_context) {
             while (1) {
                 switch (_context.prev = _context.next) {
                     case 0:
-                        _context.next = 2;
-                        return cepWithPromise(value);
+                        correctCEP = value.replace(/[^0-9]/g, '');
+                        _context.next = 3;
+                        return cepWithPromise(correctCEP);
 
-                    case 2:
+                    case 3:
                         result = _context.sent;
 
                         if (!(result && !result.erro)) {
-                            _context.next = 8;
+                            _context.next = 9;
                             break;
                         }
 
@@ -34,10 +35,10 @@ var cep = function () {
 
                         return _context.abrupt('return', result);
 
-                    case 8:
+                    case 9:
                         return _context.abrupt('return', null);
 
-                    case 9:
+                    case 10:
                     case 'end':
                         return _context.stop();
                 }
