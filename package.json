@@ -1,6 +1,6 @@
 {
   "name": "cidades-estados-brasil-json",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Array de estados (com acentos) e cidades(com acentos) do Brasil em JSON com ID relacionado.",
   "main": "./dist/index.js",
   "scripts": {
