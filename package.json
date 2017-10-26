@@ -5,7 +5,9 @@
   "main": "./dist/index.js",
   "scripts": {
     "start": "npm run build",
-    "build": "babel ./index.js -d ./dist",
+    "build": "npm run copy && npm run babel",
+    "babel": "babel ./index.js -d ./dist",
+    "copy": "copyfiles Cidades.json Estados.json dist",
     "test": "jest"
   },
   "repository": {
@@ -38,5 +40,8 @@
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.4.0",
     "jest": "^21.2.1"
+  },
+  "dependencies": {
+    "copyfiles": "^1.2.0"
   }
 }

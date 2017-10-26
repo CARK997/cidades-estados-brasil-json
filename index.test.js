@@ -1,4 +1,4 @@
-import { citiesBy, citiesById, stateBy, stateById } from './index';
+import { citiesBy, citiesById, stateBy, stateById } from './dist/index';
 
 const MINAS_GERAIS = {
     ID: '11',
