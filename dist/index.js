@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.stateById = exports.stateBy = exports.citiesById = exports.citiesBy = exports.states = exports.cities = undefined;
+exports.stateById = exports.stateBy = exports.cityById = exports.citiesBy = exports.states = exports.cities = undefined;
 
 var _Cidades = require('./Cidades.json');
 
@@ -23,7 +23,7 @@ function citiesBy(key, value) {
     return entries;
 }
 
-function citiesById(id) {
+function cityById(id) {
     return citiesBy('ID', String(id));
 }
 
@@ -42,6 +42,6 @@ function stateById(id) {
 exports.cities = _Cidades2.default;
 exports.states = _Estados2.default;
 exports.citiesBy = citiesBy;
-exports.citiesById = citiesById;
+exports.cityById = cityById;
 exports.stateBy = stateBy;
 exports.stateById = stateById;

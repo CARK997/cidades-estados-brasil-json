@@ -1,4 +1,4 @@
-import { citiesBy, citiesById, stateBy, stateById } from './dist/index';
+import { citiesBy, cityById, stateBy, stateById } from './dist/index';
 
 const MINAS_GERAIS = {
     ID: '11',
@@ -40,11 +40,11 @@ describe('citiesBy', () =>
     });
 });
 
-describe('citiesById', () =>
+describe('cityById', () =>
 {
     it('should return correct city by ID field', () =>
     {
-        expect(citiesById(1630)).toEqual([BELO_HORIZONTE]);
+        expect(cityById(1630)).toEqual([BELO_HORIZONTE]);
     });
 });
 

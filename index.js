@@ -8,7 +8,7 @@ function citiesBy(key, value)
     return entries;
 }
 
-function citiesById(id)
+function cityById(id)
 {
     return citiesBy('ID', String(id));
 }
@@ -25,4 +25,4 @@ function stateById(id)
     return stateBy('ID', String(id));
 }
 
-export { cities, states, citiesBy, citiesById, stateBy, stateById };
+export { cities, states, citiesBy, cityById, stateBy, stateById };
